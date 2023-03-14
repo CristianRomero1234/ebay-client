@@ -1,4 +1,4 @@
-class BootstrapCard {
+class SearchBootstrapCard {
     constructor(cardContainerID, cardImageURL, cardTitle, cardShortDescription, ebayURL) {
         this.create(cardContainerID, cardImageURL, cardTitle, cardShortDescription, ebayURL);
     }
@@ -15,6 +15,7 @@ class BootstrapCard {
         this.cardTextBody.appendChild(this.cardShortDescription);
         this.cardContainer.appendChild(this.cardImage);
         this.cardContainer.appendChild(this.cardTextBody);
+        this.cardContainer.appendChild(this.ebayURL );
         this.cardColumn.appendChild(this.cardContainer);
     }
     createCardColumn() {
@@ -68,18 +69,31 @@ class BootstrapCard {
             ebayURL.classList.add("btn");
             ebayURL.classList.add("btn-primary");
             ebayURL.href = cardEbayURL;
+            ebayURL.innerHTML = "Visit ebay"
             return ebayURL;
         }
     }
 }
-function getData() {
-    fetch('http://localhost:5000/ebay')
+let input = document.getElementById("searchBox");
+let visited = false;
+let previousSearches = [];
+function sanitizeInputData(){
+    let inputData = input.value;
+    let pattern = /\w+/gmi;
+    let result = inputData.match(pattern).toString();
+    previousSearches.push(inputData);
+    input.value = "";
+    getData(result);
+}
+function getData(keyWords) {
+    fetch(`http://localhost:5000/ebay2/${keyWords}`)
         .then((response) => response.json())
         .then((json) => handleData(json));
 }
 let row = document.getElementById("items-Area");
 function handleData(data) {
     let response = data.item;
+    row.innerHTML = "";
     for (let index = 0; index < response.length; index++) {
         const element = response[index];
         let cardId = "card-" + index;
@@ -88,10 +102,7 @@ function handleData(data) {
         let currency = element.sellingStatus.currentPrice._currencyId;
         let price = element.sellingStatus.currentPrice.value + " " + currency;
         let ebayLink = element.viewItemURL;
-        bscard = new BootstrapCard(cardId, cardImageUrl, cardTitle, price, ebayLink);
-        row.appendChild(bscard.cardColumn);
+        sbscard = new SearchBootstrapCard(cardId, cardImageUrl, cardTitle, price, ebayLink);
+        row.appendChild(sbscard.cardColumn);
     }
 }
-getData();
-
-
