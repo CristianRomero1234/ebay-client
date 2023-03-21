@@ -8,3 +8,6 @@ img{
   height:200px;
   max-height:600px;
 }
+.dropdown {
+  margin: 30px;
+}
