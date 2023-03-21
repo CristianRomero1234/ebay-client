@@ -211,10 +211,6 @@ function getInsight(keywords, ebayCountry) {
                 createTD("row5", "Min price");
                 createTD("row5", json.insightMinPrice);
             }
-
-
-
-
         });
   }
 
