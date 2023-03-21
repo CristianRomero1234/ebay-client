@@ -177,9 +177,9 @@ function removeEl() {
     let nodes = document.querySelectorAll("#toDelete").forEach(e => e.remove());
 }
 var requested = false;
-const REST_API = "http://localhost:5000/";
+const REST_API = "http://localhost:5000";
 function getInsight(keywords, ebayCountry) {
-    fetch(`${REST_API}insight/${keywords}/${ebayCountry}`)
+    fetch(`${REST_API}/insight/${keywords}/${ebayCountry}`)
         .then((response) => response.json())
         .then((json) => {
             if (requested === false) {
