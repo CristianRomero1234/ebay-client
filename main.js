@@ -72,8 +72,9 @@ class BootstrapCard {
         }
     }
 }
+const REST_API = "http://localhost:5000/";
 function getData() {
-    fetch('http://localhost:5000/ebay')
+    fetch(REST_API)
         .then((response) => response.json())
         .then((json) => handleData(json));
 }

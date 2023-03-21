@@ -85,8 +85,9 @@ function sanitizeInputData(){
     input.value = "";
     getData(result);
 }
+const REST_API = "http://localhost:5000";
 function getData(keyWords) {
-    fetch(`http://localhost:5000/ebay2/${keyWords}`)
+    fetch(`${REST_API}/ebay2/${keyWords}`)
         .then((response) => response.json())
         .then((json) => handleData(json));
 }
