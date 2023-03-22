@@ -11,3 +11,6 @@ img{
 .dropdown {
   margin: 30px;
 }
+#accordion-item-3{
+display:inline-flex;
+}
